@@ -1,8 +1,9 @@
 {
-	"name": "a22-react-ui",
-	"version": "1.0.0",
+	"name": "a22t-tauri-react-app",
+	"version": "0.1.0",
 	"scripts": {
-		"dev": "vite --mode mock",
+		"mock": "vite --mode mock",
+		"dev": "vite --port 3000",
 		"preview": "vite preview",
 		"build": "vite build",
 		"build:prod": "yarn && vite build"
@@ -23,7 +24,9 @@
 		"@vitejs/plugin-react": "^4.4.1",
 		"mitt": "^3.0.1",
 		"typescript": "^5.8.3",
-		"vite": "^6.3.5"
+		"vite": "^6.3.5",
+		"@tauri-apps/cli": "~2.0.0",
+		"@tauri-apps/api": "~2.0.0"
 	},
 	"license": "MIT"
 }
