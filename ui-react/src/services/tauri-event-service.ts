@@ -37,6 +37,10 @@ class TauriEventService {
 		return tauriBridge.runTask(task);
 	}
 
+	appSettingsGet(): Promise<any> {
+		return tauriBridge.appSettingsGet();
+	}
+
 	abortTask(taskId: string) {
 		return tauriBridge.abortTask(taskId);
 	}

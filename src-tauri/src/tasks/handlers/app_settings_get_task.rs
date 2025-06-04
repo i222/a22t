@@ -18,26 +18,22 @@ pub fn app_settings_get_task(
 ) -> Arc<dyn Fn(TaskInput, TaskContext) -> BoxFuture<'static, ()> + Send + Sync> {
     Arc::new(move |_input: TaskInput, ctx: TaskContext| {
         let store = store.clone();
-        Box::pin(async move {
-            (ctx.emit)(TaskEvent::Progress {
-                task_id: "app_settings_get".to_string(),
-                message: Some("Fetching app settings...".to_string()),
-                payload: None,
-            });
+        let task_id = ctx.task_id.clone();
 
+        Box::pin(async move {
+            
             let settings: Option<AppSettings> = store.get("appSettings").and_then(|val| {
-							if val.is_null() {
-									None
-							} else {
-									serde_json::from_value(val).ok()
-							}
-					});
-					
+                if val.is_null() {
+                    None
+                } else {
+                    serde_json::from_value(val).ok()
+                }
+            });
 
             let result = settings.unwrap_or_default();
 
             (ctx.emit)(TaskEvent::Result {
-                task_id: "app_settings_get".to_string(),
+                task_id: task_id,
                 message: Some("Fetched settings".to_string()),
                 payload: serde_json::to_value(&result).unwrap(),
             });

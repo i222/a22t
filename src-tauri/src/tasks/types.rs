@@ -1,8 +1,9 @@
-// // // tauri/src-tauri/src/tasks/types.rs
+// tauri/src-tauri/src/tasks/types.rs
 
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::str::FromStr;
+use std::fmt;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Hash)]
 pub enum TaskType {
@@ -47,7 +48,6 @@ impl TaskType {
     }
 }
 
-// Для удобства парсинга из строки
 impl FromStr for TaskType {
     type Err = ();
 
@@ -71,6 +71,25 @@ impl FromStr for TaskType {
     }
 }
 
+impl fmt::Display for TaskType {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let as_str = match self {
+            TaskType::TID_ANALYZE_MEDIA_INFO => "TID_ANALYZE_MEDIA_INFO",
+            TaskType::TID_ADD_MEDIAFILE => "TID_ADD_MEDIAFILE",
+            TaskType::TID_DELETE_MEDIAFILES => "TID_DELETE_MEDIAFILES",
+            TaskType::TID_UPDATE_MEDIAFILE => "TID_UPDATE_MEDIAFILE",
+            TaskType::TID_GET_MEDIAFILES_REQ => "TID_GET_MEDIAFILES_REQ",
+            TaskType::TID_APP_SETTINGS_GET_REQ => "TID_APP_SETTINGS_GET_REQ",
+            TaskType::TID_APP_SETTINGS_CHANGE_REQ => "TID_APP_SETTINGS_CHANGE_REQ",
+            TaskType::TID_APP_SETTINGS_CHANGE_DIR_REQ => "TID_APP_SETTINGS_CHANGE_DIR_REQ",
+            TaskType::BTID_DOWNLOAD_MEDIAFILES_REQ => "BTID_DOWNLOAD_MEDIAFILES_REQ",
+            TaskType::BTID_BATCH_TASKS_STATE_PUSH_ON => "BTID_BATCH_TASKS_STATE_PUSH_ON",
+            TaskType::BTID_BATCH_TASKS_STATE_PUSH_OFF => "BTID_BATCH_TASKS_STATE_PUSH_OFF",
+        };
+        write!(f, "{}", as_str)
+    }
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TaskInput {
     pub task_type: TaskType,
@@ -78,7 +97,8 @@ pub struct TaskInput {
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
-#[serde(tag = "event_type", rename_all = "snake_case")]
+// #[serde(tag = "event_type", rename_all = "snake_case")]
+#[serde(tag = "event_type")]
 pub enum TaskEvent {
     Progress {
         task_id: String,
@@ -100,5 +120,13 @@ pub enum TaskEvent {
         message: Option<String>,
         payload: Option<Value>,
     },
+    Responce {
+        task_id: String,
+    },
     // ADD Broadcast or other event types
+}
+
+// Channels for emit
+pub mod cid {
+    pub const ON_TASK_PROCESSOR_EVENT: &str = "CID_ON_TASK_PROCESSOR_EVENT";
 }
