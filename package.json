@@ -1,0 +1,13 @@
+{
+	"name": "a22t-tauri-app",
+	"version": "0.1.0",
+	"scripts": {
+		"dev": "vite --port 3003"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"@tauri-apps/cli": "~2.0.0",
+		"@tauri-apps/api": "~2.0.0"
+	},
+	"license": "MIT"
+}

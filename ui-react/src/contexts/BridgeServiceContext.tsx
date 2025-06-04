@@ -1,12 +1,10 @@
 // ui-react/src/contexts/BridgeServiceContext.tsx
 import React, { createContext, useContext, ReactNode } from 'react';
-import EventService from '../services/eventService';
+import TauriEventService from '../services/tauri-event-service';
 
-// Creating a context for BridgeService
-const BridgeServiceContext = createContext<EventService | null>(null);
+const BridgeServiceContext = createContext<TauriEventService | null>(null);
 
-// Custom hook for easy access to the context
-export const useBridgeService = (): EventService => {
+export const useBridgeService = (): TauriEventService => {
 	const context = useContext(BridgeServiceContext);
 	if (!context) {
 		throw new Error('useBridgeService must be used within a BridgeServiceProvider');
@@ -14,14 +12,15 @@ export const useBridgeService = (): EventService => {
 	return context;
 };
 
-// Context provider component with typed children
 interface BridgeServiceProviderProps {
-	children: ReactNode; // Typing children as ReactNode
+	children: ReactNode;
 }
 
 export const BridgeServiceProvider: React.FC<BridgeServiceProviderProps> = ({ children }) => {
 	// Creating a single instance of the service for the entire app
-	const bridgeService = new EventService();
+	// const bridgeService = new EventService();
+
+	const bridgeService = new TauriEventService();
 
 	return (
 		<BridgeServiceContext.Provider value={bridgeService}>

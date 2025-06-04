@@ -52,19 +52,21 @@ const Settings: React.FC = () => {
 			setError(null);
 			try {
 				// Send a request to get app settings
-				const taskId = await bridge.runTask({
-					type: 'TID_APP_SETTINGS_GET_REQ',
-					payload: null as TaskProc.AppSettingsGetReqPayload,
-				});
-				requestIdRef.current = taskId;
+				const resp = await bridge.appSettingsGet();
+				console.log('[UI][Settings] Resp:', { resp });
+				// tauri mapping
+				const conf: SettingsConfig = { baseDownloadDir: resp.base_download_dir }
+				setConfig(conf as SettingsConfig);
+				setLoading(false);
+				setSaving(false);
+				// requestIdRef.current = taskId;
 			} catch (err: any) {
 				// Handle fetch failure
+				console.log('[UI][Settings] Error:', { err });
 				setError('Failed to fetch settings: ' + err.message);
 				setLoading(false);
 			}
 		};
-
-		fetchSettings();
 
 		/**
 		 * Handles incoming task events from the bridge.
@@ -72,6 +74,7 @@ const Settings: React.FC = () => {
 		 * Filters events by taskId or broadcast.
 		 */
 		const handleEvent = (event: TaskProc.EventResp) => {
+			console.log('[UI][Settings][Income]', event, requestIdRef.current);
 			if (event.taskId !== requestIdRef.current && event.taskId !== 'BROADCAST') return;
 
 			switch (event.type) {
@@ -94,6 +97,7 @@ const Settings: React.FC = () => {
 
 		// Subscribe to bridge events
 		bridge.subscribe(handleEvent);
+		fetchSettings();
 		// Cleanup subscription on unmount
 		return () => {
 			bridge.unsubscribe(handleEvent);

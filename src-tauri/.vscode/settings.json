@@ -1,0 +1,38 @@
+{
+  "rust-analyzer.inlayHints.typeHints": false, // Disable type hints for variables (e.g., let x: i32)
+  "rust-analyzer.inlayHints.chainingHints": false, // Disable type hints in method chains (e.g., .map().filter())
+  "rust-analyzer.inlayHints.parameterHints": false, // Disable parameter name hints in function arguments
+
+  "typescript.preferences.importModuleSpecifier": "relative", // Use relative imports like './module' instead of paths
+
+  // "rust-analyzer.checkOnSave.enable": true, // Enable rust-analyzer checks on file save
+  // "rust-analyzer.checkOnSave.allTargets": false, // Only check the current target, not all
+  "rust-analyzer.procMacro.enable": false, // Disable procedural macro support for faster analysis
+  "rust-analyzer.cargo.runBuildScripts": false, // Don't run build scripts to speed up analysis
+  // "rust-analyzer.cargo.target": "app", // Optional: specify target (e.g., binary or lib)
+  // "rust-analyzer.files.excludeDirs": ["target", "node_modules"], // Exclude common heavy directories from analysis
+  "rust-analyzer.diagnostics.enable": true, // Enable diagnostics like errors and warnings
+
+  "workbench.colorCustomizations": {
+    "editor.background": "#F5FAFF", // Very light bluish background
+    "editor.foreground": "#002B4D", // Dark blue text color
+    "editorCursor.foreground": "#007ACC", // Bright blue text cursor
+    "editor.lineHighlightBackground": "#E0F0FF", // Highlight color for the current line
+    "editor.selectionBackground": "#D6ECFF", // Background color of selected text
+    "editor.inactiveSelectionBackground": "#EAF6FF", // Selection background in unfocused editor
+    "editorLineNumber.foreground": "#80A0C0", // Color for line numbers
+    "editorWhitespace.foreground": "#C0D8E8", // Color of visible whitespace (tabs, spaces)
+    "sideBar.background": "#F0F8FF", // Sidebar background (Explorer, Source Control, etc.)
+    "sideBar.foreground": "#2A3B50", // Sidebar text color
+    "activityBar.background": "#4C6E7E", // Background of the activity bar (left vertical toolbar)
+    "activityBar.foreground": "#F0F8FF", // Color of icons in the activity bar
+    "statusBar.background": "#B1D0F0", // Background color of the status bar (bottom bar)
+    "statusBar.foreground": "#001A33", // Text color in the status bar
+    "titleBar.activeBackground": "#5C90C4", // Background of the window title bar (active)
+    "titleBar.activeForeground": "#F0F8FF", // Text color in the window title bar (active)
+    "tab.activeBackground": "#D8ECFF", // Background color of the active tab
+    "tab.inactiveBackground": "#F5F9FB", // Background of inactive tabs
+    "tab.activeForeground": "#002244", // Text color of the active tab
+    "tab.inactiveForeground": "#607C96" // Text color of inactive tabs
+  }
+}
